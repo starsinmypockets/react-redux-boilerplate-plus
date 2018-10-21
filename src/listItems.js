@@ -1,47 +1,110 @@
 import React from 'react';
+import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import DashboardIcon from '@material-ui/icons/Dashboard';
+import FolderIcon from '@material-ui/icons/Folder';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import PeopleIcon from '@material-ui/icons/People';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import LayersIcon from '@material-ui/icons/Layers';
 import AssignmentIcon from '@material-ui/icons/Assignment';
+import Collapse from '@material-ui/core/Collapse';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+import StarBorder from '@material-ui/icons/StarBorder';
 
-export const mainListItems = (
+export const MainListItems = props => (
   <div>
-    <ListItem button>
+    <ListItem
+      button
+      onClick={() => {
+        props.toggleMenuState('models');
+      }}>
       <ListItemIcon>
         <DashboardIcon />
       </ListItemIcon>
-      <ListItemText primary="Dashboard" />
+      <ListItemText primary="MODELS" />
+      {props.modelsMenuOpen ? <ExpandLess /> : <ExpandMore />}
     </ListItem>
-    <ListItem button>
+    <Collapse in={props.modelsMenuOpen} timeout="auto" unmountOnExit>
+      <List component="div" disablePadding>
+        <ListItem button className={''}>
+          <ListItemIcon>
+            <StarBorder />
+          </ListItemIcon>
+          <ListItemText inset primary="Starred" />
+        </ListItem>
+      </List>
+    </Collapse>
+
+    <ListItem
+      button
+      onClick={() => {
+        props.toggleMenuState('files');
+      }}>
       <ListItemIcon>
-        <ShoppingCartIcon />
+        <FolderIcon />
       </ListItemIcon>
-      <ListItemText primary="Orders" />
+      <ListItemText primary="FILES" />
+      {props.filesMenuOpen ? <ExpandLess /> : <ExpandMore />}
     </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <PeopleIcon />
-      </ListItemIcon>
-      <ListItemText primary="Customers" />
-    </ListItem>
-    <ListItem button>
+    <Collapse in={props.filesMenuOpen} timeout="auto" unmountOnExit>
+      <List component="div" disablePadding>
+        <ListItem button className={''}>
+          <ListItemIcon>
+            <StarBorder />
+          </ListItemIcon>
+          <ListItemText inset primary="Starred" />
+        </ListItem>
+      </List>
+    </Collapse>
+
+    <ListItem
+      button
+      onClick={() => {
+        props.toggleMenuState('data');
+      }}>
       <ListItemIcon>
         <BarChartIcon />
       </ListItemIcon>
-      <ListItemText primary="Reports" />
+      <ListItemText primary="DATA" />
+      {props.dataMenuOpen ? <ExpandLess /> : <ExpandMore />}
     </ListItem>
-    <ListItem button>
+    <Collapse in={props.dataMenuOpen} timeout="auto" unmountOnExit>
+      <List component="div" disablePadding>
+        <ListItem button className={''}>
+          <ListItemIcon>
+            <StarBorder />
+          </ListItemIcon>
+          <ListItemText inset primary="Starred" />
+        </ListItem>
+      </List>
+    </Collapse>
+
+    <ListItem
+      button
+      onClick={() => {
+        props.toggleMenuState('integrations');
+      }}>
       <ListItemIcon>
         <LayersIcon />
       </ListItemIcon>
-      <ListItemText primary="Integrations" />
+      <ListItemText primary="INTEGRATIONS" />
+      {props.integrationsMenuOpen ? <ExpandLess /> : <ExpandMore />}
     </ListItem>
+    <Collapse in={props.integrationsMenuOpen} timeout="auto" unmountOnExit>
+      <List component="div" disablePadding>
+        <ListItem button className={''}>
+          <ListItemIcon>
+            <StarBorder />
+          </ListItemIcon>
+          <ListItemText inset primary="Starred" />
+        </ListItem>
+      </List>
+    </Collapse>
   </div>
 );
 

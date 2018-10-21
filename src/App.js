@@ -19,7 +19,7 @@ import Badge from '@material-ui/core/Badge';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import { mainListItems, secondaryListItems } from './listItems';
+import { MainListItems, secondaryListItems } from './listItems';
 
 
 const mapStateToProps = state => ({
@@ -113,6 +113,10 @@ const styles = theme => ({
 class App extends Component {
   state = {
     open: true,
+    modelsMenuOpen: false,
+    dataMenuOpen: false,
+    filesMenuOpen: false,
+    integrationsMenuOpen: false
   };
 
   handleDrawerOpen = () => {
@@ -122,6 +126,23 @@ class App extends Component {
   handleDrawerClose = () => {
     this.setState({ open: false });
   };
+
+  toggleMenuState = (menu) => {
+    switch (menu) {
+      case 'models':
+        this.setState({modelsMenuOpen: !(this.state.modelsMenuOpen)})
+        break
+      case 'data':
+        this.setState({dataMenuOpen: !(this.state.dataMenuOpen)})
+        break
+      case 'files':
+        this.setState({filesMenuOpen: !(this.state.filesMenuOpen)})
+        break
+      case 'integrations':
+        this.setState({integrationsMenuOpen: !(this.state.integrationsMenuOpen)})
+        break
+    }
+  }
 
   simpleAction(e) {
     this.props.simpleAction();
@@ -178,7 +199,7 @@ class App extends Component {
               </IconButton>
             </div>
             <Divider />
-            <List>{mainListItems}</List>
+            <List><MainListItems {...this.state} toggleMenuState={this.toggleMenuState} /></List>
             <Divider />
             <List>{secondaryListItems}</List>
           </Drawer>
