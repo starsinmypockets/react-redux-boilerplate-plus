@@ -1,0 +1,42 @@
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { SimpleAction, FooAction } from './actions'
+import logo from './logo.svg'
+import './App.css'
+
+const mapStateToProps = state => ({
+ ...state
+})
+
+const mapDispatchToProps = dispatch => ({
+ simpleAction: () => dispatch(SimpleAction()),
+ fooAction: () => dispatch(FooAction())
+})
+
+class App extends Component {
+  simpleAction(e) {
+    this.props.simpleAction()
+  }
+  
+  render() {
+    return (
+      <div className="App">
+        <pre>
+         {
+          JSON.stringify(this.props)
+         }
+        </pre>
+        <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          <h1 className="App-title">Welcome to React</h1>
+        </header>
+        <p className="App-intro">
+          To get started, edit <code>src/App.js</code> and save to reload.
+        </p>
+        <button onClick={this.simpleAction.bind(this)}>Test redux action</button>
+      </div>
+    );
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
