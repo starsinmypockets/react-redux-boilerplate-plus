@@ -1,34 +1,30 @@
 const drawerWidth = 240;
-
 export default theme => ({
-  root: {
-    flexGrow: 1,
-  },
-  appFrame: {
-    height: 440,
-    zIndex: 1,
-    overflow: 'hidden',
-    position: 'relative',
-    display: 'flex',
-    width: '100%',
-  },
-  appBar: {
-    width: `calc(100% - ${drawerWidth}px)`,
-  },
-  'appBar-left': {
-    marginLeft: drawerWidth,
-  },
-  'appBar-right': {
-    marginRight: drawerWidth,
-  },
   drawerPaper: {
     position: 'relative',
     width: drawerWidth,
+    transition: theme.transitions.create('width', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  },
+  drawerPaperClose: {
+    overflowX: 'hidden',
+    transition: theme.transitions.create('width', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    width: theme.spacing.unit * 7,
+    [theme.breakpoints.up('sm')]: {
+      width: theme.spacing.unit * 9,
+    },
   },
   toolbar: theme.mixins.toolbar,
-  content: {
-    flexGrow: 1,
-    backgroundColor: theme.palette.background.default,
-    padding: theme.spacing.unit * 3,
+  root: {
+    width: '100%',
   },
-})
+  heading: {
+    fontSize: theme.typography.pxToRem(15),
+    fontWeight: theme.typography.fontWeightRegular,
+  },
+});
