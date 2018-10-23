@@ -1,5 +1,10 @@
-import { combineReducers } from 'redux'
-import simpleReducer from './SimpleReducer'
+import {combineReducers} from 'redux';
+import simpleReducer from './SimpleReducer';
+import UIReducer from './UIReducer';
+import ContentReducer from './ContentReducer';
+
 export default combineReducers({
- simpleReducer
-})
+  simpleReducer,
+  UI: UIReducer,
+  Content: ContentReducer
+});
