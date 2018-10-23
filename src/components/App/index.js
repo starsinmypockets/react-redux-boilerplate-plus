@@ -1,8 +1,13 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import { Route } from 'react-router-dom'
 import {UIAction, FetchAPIContentAction} from '../../actions';
 import logo from './logo.svg';
 import './App.css';
+import Data from '../Data';
+import Files from '../Files';
+import Models from '../Models';
+import Integrations from '../Integrations';
 import Button from '@material-ui/core/Button';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
@@ -28,7 +33,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   updateUIAction: (part, state) => dispatch(UIAction(part, state)),
-  fetchItemAction: (opts) => dispatch(FetchAPIContentAction(opts))
+  fetchItemAction: opts => dispatch(FetchAPIContentAction(opts)),
 });
 
 class App extends Component {
@@ -38,7 +43,7 @@ class App extends Component {
   }
 
   toggleMenuState = menu => {
-		this.props.updateUIAction(['leftNav', menu], !this.props.UI.leftNav[menu])
+    this.props.updateUIAction(['leftNav', menu], !this.props.UI.leftNav[menu]);
   };
 
   render() {
@@ -95,8 +100,7 @@ class App extends Component {
               <IconButton
                 onClick={() => {
                   updateUIAction(['leftNav', 'open'], false);
-                }}
-              >
+                }}>
                 <ChevronLeftIcon />
               </IconButton>
             </div>
@@ -113,16 +117,10 @@ class App extends Component {
           </Drawer>
           <main className={classes.content}>
             <div className={classes.appBarSpacer} />
-            <Typography variant="h4" gutterBottom component="h2">
-              Orders
-            </Typography>
-            <Typography component="div" className={classes.chartContainer}>
-              MAIN 1
-            </Typography>
-            <Typography variant="h4" gutterBottom component="h2">
-              Products
-            </Typography>
-            <div className={classes.tableContainer}>MAIN 2</div>
+            <Route exact path="/models" component={Models} />
+            <Route exact path="/files" component={Files} />
+            <Route exact path="/data" component={Data} />
+            <Route exact path="/integrations" component={Integrations} />
           </main>
         </div>
       </React.Fragment>
@@ -130,6 +128,13 @@ class App extends Component {
   }
 }
 
+const Foo = () => {
+  return <p>FOO</p>
+}
+
+const Bar = () => {
+  return <p>BAR</p>
+}
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
