@@ -55,6 +55,7 @@ const styles = theme => ({
       duration: theme.transitions.duration.leavingScreen,
     }),
     width: theme.spacing.unit * 7,
+    marginLeft: 0,
     [theme.breakpoints.up('sm')]: {
       width: theme.spacing.unit * 9,
     },
@@ -65,15 +66,6 @@ const styles = theme => ({
     padding: theme.spacing.unit * 3,
     height: '100vh',
     overflow: 'auto',
-  },
-  chartContainer: {
-    marginLeft: -22,
-  },
-  tableContainer: {
-    height: 320,
-  },
-  h5: {
-    marginBottom: theme.spacing.unit * 2,
   },
 });
 

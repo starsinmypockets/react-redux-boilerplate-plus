@@ -21,36 +21,47 @@ const preloadedState = {
       {
         name: 'Model Number 1',
         description: 'A description of Model 1',
-        id: 'abc123',
+        id: 'm1',
       },
       {
         name: 'Model Number 2',
         description: 'A description of Model 2',
-        id: 'abcdef1',
+        id: 'm2',
       },
       {
         name: 'Model Number 3',
         description: 'A description of Model 3',
-        id: 'def1',
+        id: 'm3',
       },
     ],
-    data: [],
-    integrations: [],
+    data: [
+      {
+        name: 'Data Item 1',
+        description: 'A description of Data Item 1',
+        id: 'd1',
+      },
+      {
+        name: 'Data Item 2',
+        description: 'A description of Data Item 2',
+        id: 'd2',
+      },
+    
+    ],
     files: [
       {
         name: 'file1.csv',
         directory: '/',
-        id: '1',
+        id: 'f1',
       },
       {
         name: 'file2.csv',
         directory: '/',
-        id: '2',
+        id: 'f2',
       },
       {
-        name: 'file2.csv',
+        name: 'file3.csv',
         directory: '/tmp/later/',
-        id: '3',
+        id: 'f3',
       },
     ],
   },

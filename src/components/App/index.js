@@ -1,15 +1,12 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {withRouter, Route, Switch} from 'react-router-dom';
+import {withRouter, Route, Switch, Link} from 'react-router-dom';
 import {UIAction, FetchAPIContentAction} from '../../actions';
-import logo from './logo.svg';
 import './App.css';
 import Data from '../Data';
 import Files from '../Files';
 import Models from '../Models';
-import Integrations from '../Integrations';
-import Button from '@material-ui/core/Button';
-import PropTypes from 'prop-types';
+import Home from '../Home';
 import classNames from 'classnames';
 import {withStyles} from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -24,7 +21,7 @@ import Badge from '@material-ui/core/Badge';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
-import {MainListItems, secondaryListItems} from './listItems';
+import {MainListItems} from './listItems';
 import styles from './styles';
 
 const mapStateToProps = state => ({
@@ -37,13 +34,12 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    console.log(this);
-  }
-
   toggleMenuState = menu => {
+    const open = !this.props.UI.leftNav[menu];
     this.props.updateUIAction(['leftNav', menu], !this.props.UI.leftNav[menu]);
+    if (open) {
+      this.props.updateUIAction(['leftNav', 'open'], true);
+    }
   };
 
   render() {
@@ -78,7 +74,9 @@ class App extends Component {
                 color="inherit"
                 noWrap
                 className={classes.title}>
+              <Link to="/" style={{color:'white'}}>
                 Dashboard
+              </Link>
               </Typography>
               <IconButton color="inherit">
                 <Badge badgeContent={4} color="secondary">
@@ -100,6 +98,9 @@ class App extends Component {
               <IconButton
                 onClick={() => {
                   updateUIAction(['leftNav', 'open'], false);
+                  updateUIAction(['leftNav', 'models'], false);
+                  updateUIAction(['leftNav', 'files'], false);
+                  updateUIAction(['leftNav', 'data'], false);
                 }}>
                 <ChevronLeftIcon />
               </IconButton>
@@ -107,7 +108,7 @@ class App extends Component {
             <Divider />
             <List>
               <MainListItems
-                items={['models', 'files', 'data', 'integrations']}
+                items={['models', 'files', 'data']}
                 UIState={this.props.UI}
                 content={this.props.Content}
                 fetchItem={this.props.fetchItemAction}
@@ -118,11 +119,26 @@ class App extends Component {
           <main className={classes.content}>
             <div className={classes.appBarSpacer} />
             <Switch>
+              <Route exact path="/" component={Home} />
               <Route exact path="/models" component={Models} />
-              <Route path="/models/:id?" models={this.props.Content.models} render={props => <Models {...props} models={this.props.Content.models} />} />
-              <Route path="/files/:id?" component={Files} />
-              <Route path="/data/:id?" component={Data} />
-              <Route path="/integrations" component={Integrations} />
+              <Route
+                path="/models/:id?"
+                render={props => (
+                  <Models {...props} models={this.props.Content.models} />
+                )}
+              />
+              <Route
+                path="/files/:id?"
+                render={props => (
+                  <Files {...props} files={this.props.Content.files} />
+                )}
+              />
+              <Route
+                path="/data/:id?"
+                render={props => (
+                  <Data {...props} data={this.props.Content.data} />
+                )}
+              />
               <Route
                 component={props => {
                   return <p>Not Found</p>;
@@ -136,13 +152,6 @@ class App extends Component {
   }
 }
 
-const Foo = () => {
-  return <p>FOO</p>;
-};
-
-const Bar = () => {
-  return <p>BAR</p>;
-};
 export default withRouter(
   connect(
     mapStateToProps,
