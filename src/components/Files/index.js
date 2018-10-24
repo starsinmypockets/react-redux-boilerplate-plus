@@ -1,6 +1,9 @@
 import React from 'react';
+
+
 const files = props => {
-  return <p>Files page here</p>;
+  const id = props.match.params.id
+  return <p>File {id} page here</p>;
 };
 
 export default files;

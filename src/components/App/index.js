@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import { Route } from 'react-router-dom'
+import {withRouter, Route, Switch} from 'react-router-dom';
 import {UIAction, FetchAPIContentAction} from '../../actions';
 import logo from './logo.svg';
 import './App.css';
@@ -117,10 +117,18 @@ class App extends Component {
           </Drawer>
           <main className={classes.content}>
             <div className={classes.appBarSpacer} />
-            <Route exact path="/models" component={Models} />
-            <Route exact path="/files" component={Files} />
-            <Route exact path="/data" component={Data} />
-            <Route exact path="/integrations" component={Integrations} />
+            <Switch>
+              <Route exact path="/models" component={Models} />
+              <Route path="/models/:id?" models={this.props.Content.models} render={props => <Models {...props} models={this.props.Content.models} />} />
+              <Route path="/files/:id?" component={Files} />
+              <Route path="/data/:id?" component={Data} />
+              <Route path="/integrations" component={Integrations} />
+              <Route
+                component={props => {
+                  return <p>Not Found</p>;
+                }}
+              />
+            </Switch>
           </main>
         </div>
       </React.Fragment>
@@ -129,13 +137,15 @@ class App extends Component {
 }
 
 const Foo = () => {
-  return <p>FOO</p>
-}
+  return <p>FOO</p>;
+};
 
 const Bar = () => {
-  return <p>BAR</p>
-}
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(withStyles(styles)(App));
+  return <p>BAR</p>;
+};
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  )(withStyles(styles)(App)),
+);

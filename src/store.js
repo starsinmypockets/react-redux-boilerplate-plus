@@ -19,18 +19,18 @@ const preloadedState = {
   Content: {
     models: [
       {
-        name: 'Left Field Pastures',
-        description: 'A description of it',
+        name: 'Model Number 1',
+        description: 'A description of Model 1',
         id: 'abc123',
       },
       {
-        name: 'Right Field Pastures',
-        description: 'A description of it',
+        name: 'Model Number 2',
+        description: 'A description of Model 2',
         id: 'abcdef1',
       },
       {
-        name: 'Right Field Pastures',
-        description: 'A description of it',
+        name: 'Model Number 3',
+        description: 'A description of Model 3',
         id: 'def1',
       },
     ],
@@ -38,18 +38,18 @@ const preloadedState = {
     integrations: [],
     files: [
       {
-        name: 'pasture_left.csv',
-        path: '/',
+        name: 'file1.csv',
+        directory: '/',
         id: '1',
       },
       {
-        name: 'pasture_right.csv',
-        path: '/',
+        name: 'file2.csv',
+        directory: '/',
         id: '2',
       },
       {
-        name: 'later_one.csv',
-        path: '/tmp/later/',
+        name: 'file2.csv',
+        directory: '/tmp/later/',
         id: '3',
       },
     ],

@@ -13,26 +13,32 @@ import Collapse from '@material-ui/core/Collapse';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import Button from '@material-ui/core/Button';
+import {Link} from 'react-router-dom';
 
 const ContentListItem = props => {
+  console.log("io", props)
   return (
     <ListItem>
-      <Button color="primary" key={props.key} onClick={() => {props.fetchItem({...props})}}>
+      <Link
+        to={`/${props.item}/${props.id}`}
+        hash={`/${props.item}/${props.id}`} 
+      >
         {props.name}
-      </Button>
+      </Link>
     </ListItem>
   );
 };
 
 const MainListItem = props => {
-  const children = props.content.map(row => <ContentListItem {...row} fetchItem={props.fetchItem} />);
+  const children = props.content.map(row => (
+    <ContentListItem {...row} fetchItem={props.fetchItem} item={props.item}/>
+  ));
   return (
     <div key={props.key}>
       <ListItem
         button
         onClick={() => {
           props.toggleMenuState(props.item);
-
         }}>
         <ListItemIcon>{props.icon}</ListItemIcon>
         <ListItemText primary={props.item.toUpperCase()} />
@@ -40,7 +46,7 @@ const MainListItem = props => {
       </ListItem>
       <Collapse in={props.open} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
-            {children}
+          {children}
         </List>
       </Collapse>
     </div>
